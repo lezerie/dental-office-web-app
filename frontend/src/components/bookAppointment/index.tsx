@@ -3,20 +3,12 @@ import {
   Box,
   Button,
   Typography,
-  Stack,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   RadioGroup,
-  FormControlLabel,
-  Radio,
   ToggleButton,
   TextField,
 } from "@mui/material";
 import NavigationBar from "../navbar";
 import Footer from "../footer";
-import CoverPhoto from "/dental-clinic-cover-photo.png";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import dayjs from "dayjs";
@@ -84,7 +76,6 @@ function BookAppointmentPage() {
 
   const handleChangeService = (service: string) => {
     if (selectedServices.some((savedService) => service === savedService)) {
-      const index = selectedServices.indexOf(service);
       setSelectedServices((prev: string[]) =>
         prev.filter((item) => item !== service)
       );
@@ -107,7 +98,7 @@ function BookAppointmentPage() {
     );
   };
 
-  const handleSelectDate = (value) => {
+  const handleSelectDate = (value: any) => {
     console.log(new Date(value));
     setSelectedDate(new Date(value));
   };
