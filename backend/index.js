@@ -1,20 +1,28 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const authRoutes = require("./routes/authRoutes");
-const appointmentRoutes = require("./routes/appointmentRoutes");
-const scheduleRoutes = require("./routes/scheduleRoutes");
-const doctorRoutes = require("./routes/doctorRoutes");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const authRoutes = require("./routes/auth.route");
+const bookingRoutes = require("./routes/booking.route");
+const homeRoutes = require("./routes/home.route");
+const userRoutes = require("./routes/user.route");
 
 const app = express();
-const PORT = 3000;
+app.use(express.json());
 
-app.use(bodyParser.json());
+app.use("/auth", authRoutes);
+app.use("/booking", bookingRoutes);
+app.use("/home", homeRoutes);
+app.use("/user", userRoutes);
 
-app.use("/api/auth", authRoutes);
-app.use("/api", appointmentRoutes);
-app.use("/api", scheduleRoutes);
-app.use("/api", doctorRoutes);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal server error" });
+});
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Start the server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
