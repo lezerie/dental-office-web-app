@@ -1,4 +1,3 @@
-import { useState, MouseEvent } from "react";
 import { Typography, Box, FormGroup } from "@mui/material";
 import { useNavbar } from "./hooks/useNavbar";
 

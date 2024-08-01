@@ -10,11 +10,9 @@ import {
   IScheduleList,
 } from "../../../interfaces/booking.response";
 import { SelectChangeEvent } from "@mui/material";
-import { Book } from "@mui/icons-material";
 
 export const useBookAppointment = () => {
   const navigate = useNavigate();
-  const minDate = new Date();
   const storedToken: string = useAppSelector((state) => state.Token.token);
   const storedUser: any = useAppSelector((state) => state.User.user);
   console.log("BOOK CHECK", storedToken);

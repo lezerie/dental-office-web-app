@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Modal, ModalDialog, ModalClose, DialogTitle, Button } from "@mui/joy";
 import NavigationBar from "../navbar";
 import Footer from "../footer";

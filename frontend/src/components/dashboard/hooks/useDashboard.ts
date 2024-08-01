@@ -68,7 +68,8 @@ export const useDashboard = () => {
     });
     if (response.status === 200) {
       const tempSelectedAppointment = storedAppointments.filter(
-        (appointment) => appointment.appointment_id != parseInt(response.id)
+        (appointment: any) =>
+          appointment.appointment_id != parseInt(response.id)
       );
       const appointmentPlaceholder =
         await useLoginHooks.handleFetchAppointmentList(

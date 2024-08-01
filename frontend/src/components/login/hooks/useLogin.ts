@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, MouseEvent, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { EmailRegex } from "../../../constants/regex-validations";
 import { useAppDispatch } from "../../../states/hook";
 import { addUser } from "../../../states/details/user.slice";
@@ -71,7 +71,7 @@ export const useLogin = () => {
     }
   };
 
-  const handleFetchAppointmentList = async (id, token) => {
+  const handleFetchAppointmentList = async (id: string, token: string) => {
     const appointmentList = await UserRequest({
       method: "GET",
       id: id,

@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Stack } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import NavigationBar from "../navbar";
 import Footer from "../footer";
 import CoverPhoto from "/dental-clinic-cover-photo.png";

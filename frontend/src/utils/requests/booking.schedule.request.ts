@@ -7,7 +7,6 @@ export const BookingScheduleRequest = async (
   props: IBookingSchedulePayload
 ): Promise<IScheduleResponse> => {
   const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-  let data: any = {};
   const scheduleResponse = await Api({
     url: `${BASE_URL}${Endpoint.booking}/${props.process}`,
     method: props.method,
