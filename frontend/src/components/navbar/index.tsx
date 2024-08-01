@@ -1,30 +1,16 @@
 import { useState, MouseEvent } from "react";
 import { Typography, Box, FormGroup } from "@mui/material";
+import { useNavbar } from "./hooks/useNavbar";
 
 function NavigationBar() {
-  const pages = ["Home", "Services", "Contact"];
-  const handleMenu = (page: string) => {
-    setSelectedPage(page);
-    console.log("You clicked", page);
-  };
-  const [showUserMenu, setShowUserMenu] = useState<null | HTMLElement>(null);
-  const [selectedPage, setSelectedPage] = useState<string>("");
-
-  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
-    setShowUserMenu(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setShowUserMenu(null);
-  };
+  const { ...hooks } = useNavbar();
 
   return (
     <Box
       sx={{
         backgroundColor: "#002b5a",
         color: "#fffffd",
-        height: "98.3vh",
-        padding: "25px auto",
+        height: "100vh",
         minWidth: "10%",
       }}
     >
@@ -37,15 +23,14 @@ function NavigationBar() {
         <img
           style={{ width: "150px", display: "flex" }}
           src="./logo.png"
-          alt="Dental Clinic Logo"
+          alt="Dental Office Logo"
         />
-        {pages.map((page) => {
+        {hooks.Pages.map((page) => {
           return (
             <Box
-              key={page}
-              onClick={() => handleMenu(page)}
+              key={page.name}
+              onClick={() => hooks.handleClickHome(page)}
               sx={{
-                backgroundColor: page === selectedPage ? "#0fb8f9" : null,
                 "&:hover": {
                   backgroundColor: "#3c4e70",
                   cursor: "pointer",
@@ -58,10 +43,10 @@ function NavigationBar() {
                   fontSize: "20px",
                   fontWeight: "600px",
                   textAnchor: "center",
-                  padding: "20px",
+                  padding: "20px 0px",
                 }}
               >
-                {page}
+                {page.name}
               </Typography>
             </Box>
           );
@@ -73,8 +58,13 @@ function NavigationBar() {
         }}
       >
         <Box
+          onClick={
+            hooks.storedUser.full_name.length === 0
+              ? hooks.handleClickLogin
+              : hooks.handleClickUser
+          }
           sx={{
-            backgroundColor: selectedPage === "Login" ? "#0fb8f9" : null,
+            backgroundColor: hooks.selectedPage === "Login" ? "#0fb8f9" : null,
             "&:hover": {
               backgroundColor: "#3c4e70",
               cursor: "pointer",
@@ -88,11 +78,44 @@ function NavigationBar() {
               fontWeight: "600px",
               textAnchor: "center",
               p: 2,
+              color:
+                hooks.storedUser.full_name.length === 0
+                  ? hooks.displayedText
+                  : hooks.storedUser.full_name
+                  ? "#fda5cb"
+                  : null,
             }}
           >
-            Login
+            {hooks.storedUser.full_name.length === 0
+              ? hooks.displayedText
+              : hooks.storedUser.full_name}
           </Typography>
         </Box>
+        {hooks.storedUser.full_name.length === 0 ? (
+          <></>
+        ) : (
+          <Box
+            onClick={hooks.handleClickLogout}
+            sx={{
+              "&:hover": {
+                backgroundColor: "#3c4e70",
+                cursor: "pointer",
+              },
+            }}
+          >
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: "20px",
+                fontWeight: "600px",
+                textAnchor: "center",
+                p: 2,
+              }}
+            >
+              Logout
+            </Typography>
+          </Box>
+        )}
       </FormGroup>
     </Box>
   );

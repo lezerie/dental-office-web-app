@@ -2,28 +2,10 @@ import { Box, Button, Typography, Stack } from "@mui/material";
 import NavigationBar from "../navbar";
 import Footer from "../footer";
 import CoverPhoto from "/dental-clinic-cover-photo.png";
+import { useHome } from "./hooks/useHome";
 
-function HomePage() {
-  const services = [
-    {
-      title: "Teeth Whitening",
-      description:
-        "Brighten your smile with our professional teeth whitening services. Safe, effective, and long-lasting results.",
-      imageSrc: "whitening.png",
-    },
-    {
-      title: "Dental Checkup",
-      description:
-        "Routine checkups to ensure your oral health is in top condition. Includes cleaning, examination, and x-rays.",
-      imageSrc: "checkup.png",
-    },
-    {
-      title: "Orthodontics",
-      description:
-        "Straighten your teeth with our advanced orthodontic treatments. We offer traditional braces and clear aligners.",
-      imageSrc: "ortho.png",
-    },
-  ];
+function HomeComponent() {
+  const { ...hooks } = useHome();
   return (
     <Box sx={{ display: "flex" }}>
       <NavigationBar />
@@ -55,7 +37,7 @@ function HomePage() {
                 paddingTop: "20px",
               }}
             >
-              Welcome to Dental Clinic
+              Welcome to Dental Office
             </Typography>
             <Typography
               sx={{
@@ -67,6 +49,7 @@ function HomePage() {
               Your smile, our priority!
             </Typography>
             <Button
+              onClick={hooks.handleClickBooking}
               sx={{
                 backgroundColor: "#fda5cb",
                 color: "#002b5a",
@@ -102,7 +85,7 @@ function HomePage() {
               display: "flex",
             }}
           >
-            {services.map((service) => {
+            {hooks.services.map((service: any) => {
               return (
                 <Box
                   sx={{
@@ -125,7 +108,10 @@ function HomePage() {
                       zIndex: "-1",
                     }}
                   />
-                  <img src={service.imageSrc} style={{ width: "100px" }} />
+                  <img
+                    src={service.image_src}
+                    style={{ width: "100px", height: "100px" }}
+                  />
                   <Typography
                     sx={{
                       fontSize: "24px",
@@ -135,7 +121,7 @@ function HomePage() {
                       marginTop: "10px",
                     }}
                   >
-                    {service.title}
+                    {service.name}
                   </Typography>
                   <Typography
                     sx={{
@@ -174,7 +160,7 @@ function HomePage() {
           <Typography
             sx={{ fontSize: "18px", color: "#333333", marginBottom: "7px" }}
           >
-            247 Dental Clinic, Lezerie City, PH 0123
+            247 Dental Office, Lezerie City, PH 0123
           </Typography>
           <Typography
             sx={{ fontSize: "18px", color: "#333333", marginBottom: "7px" }}
@@ -193,4 +179,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default HomeComponent;

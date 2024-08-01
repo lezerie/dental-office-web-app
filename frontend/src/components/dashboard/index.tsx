@@ -1,113 +1,13 @@
-import { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
+import { Modal, ModalDialog, ModalClose, DialogTitle, Button } from "@mui/joy";
 import NavigationBar from "../navbar";
 import Footer from "../footer";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
+import { useDashboard } from "./hooks/useDashboard";
 
-function DashboardPage() {
-  const [selectedAppointment, setSelectedAppointment] = useState<any>(null);
-  const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 70 },
-    {
-      field: "date",
-      headerName: "Date of Appointment",
-      type: "date",
-      width: 155,
-    },
-    {
-      field: "service",
-      headerName: "Service",
-      width: 160,
-    },
-    {
-      field: "doctor",
-      headerName: "Doctor",
-      width: 150,
-    },
-    { field: "status", headerName: "Status", width: 130 },
-    { field: "remarks", headerName: "Additional Requests", width: 500 },
-  ];
-  const rows = [
-    {
-      id: 1,
-      date: new Date(2021, 0, 19),
-      service: "Dental Checkup",
-      doctor: "Dr. John Smith",
-      status: "Completed",
-    },
-    {
-      id: 2,
-      date: new Date(2022, 6, 13),
-      service: "Teeth Whitening",
-      doctor: "Dr. John Smith",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      date: new Date(2024, 4, 10),
-      service: "Orthodontics",
-      doctor: "Dr. Emily Brown",
-      status: "Completed",
-      remarks: "For braces",
-    },
-    {
-      id: 4,
-      date: new Date(2024, 5, 10),
-      service: "Orthodontics",
-      doctor: "Dr. Emily Brown",
-      status: "Completed",
-      remarks: "Braces adjustment",
-    },
+function DashboardComponent() {
+  const { ...hooks } = useDashboard();
 
-    {
-      id: 5,
-      date: new Date(2024, 6, 10),
-      service: "Orthodontics",
-      doctor: "Dr. Emily Brown",
-      status: "Completed",
-      remarks: "Monthly braces adjustment",
-    },
-    {
-      id: 6,
-      date: new Date(2024, 7, 10),
-      service: "Orthodontics",
-      doctor: "Dr. Emily Brown",
-      status: "Completed",
-      remarks: "Monthly adjustment of braces",
-    },
-    {
-      id: 7,
-      date: new Date(2024, 8, 10),
-      service: "Orthodontics",
-      doctor: "Dr. Emily Brown",
-      status: "Booked",
-      remarks: "Braces monthly adjustment",
-    },
-  ];
-
-  const handleSelectedAppointment = (appointment: any) => {
-    console.log("SELECTED APPOINTMENT", appointment);
-    setSelectedAppointment(appointment.row);
-  };
-
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [showTimeSelection, setShowTimeSelection] = useState<boolean>(false);
-
-  const disableDates = (date: Date) => {
-    const disabledDates = [
-      new Date(2024, 6, 1),
-      new Date(2024, 6, 10),
-      new Date(2024, 6, 20),
-    ];
-    return disabledDates.some(
-      (disabledDate) => date.getTime() === disabledDate.getTime()
-    );
-  };
-
-  const handleSelectDate = (value) => {
-    console.log(new Date(value));
-    setSelectedDate(new Date(value));
-  };
   return (
     <Box sx={{ display: "flex" }}>
       <NavigationBar />
@@ -128,16 +28,27 @@ function DashboardPage() {
         >
           Your Dashboard
         </Typography>
-        <Box>
-          <Button>Add</Button>
-          <Button disabled={!(selectedAppointment?.status === "Booked")}>
-            Cancel
+        <Box
+          sx={{
+            width: "100%",
+            paddingLeft: "100px",
+            marginBottom: "20px",
+          }}
+        >
+          <Button onClick={hooks.handleClickAdd}>Add</Button>
+          <Button
+            onClick={hooks.handleClickDelete}
+            disabled={!(hooks.selectedAppointment?.status === "Booked")}
+            color="danger"
+            sx={{ marginLeft: "10px" }}
+          >
+            Delete
           </Button>
         </Box>
         <Box sx={{ height: 400, padding: "0px 100px" }}>
           <DataGrid
-            rows={rows}
-            columns={columns}
+            rows={hooks.storedAppointments}
+            columns={hooks.ColumnSetting}
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 5 },
@@ -145,13 +56,29 @@ function DashboardPage() {
             }}
             pageSizeOptions={[5, 10]}
             checkboxSelection
-            onCellClick={handleSelectedAppointment}
+            onCellClick={hooks.handleSelectedAppointment}
+            sx={{ maxWidth: "200vh" }}
           />
         </Box>
+        <Modal open={hooks.isModalOpen} onClose={hooks.handleModalClose}>
+          <ModalDialog role="alertdialog" variant="outlined">
+            <ModalClose />
+            <DialogTitle component="h2">{hooks.modalTitle}</DialogTitle>
+            <Typography component="h2">{hooks.modalSubtitle}</Typography>
+
+            <Button
+              variant="plain"
+              color="neutral"
+              onClick={hooks.handleModalClose}
+            >
+              OK
+            </Button>
+          </ModalDialog>
+        </Modal>
         <Footer />
       </Box>
     </Box>
   );
 }
 
-export default DashboardPage;
+export default DashboardComponent;

@@ -4,14 +4,15 @@ import {
   Typography,
   Link,
   TextField,
-  Alert,
   LinearProgress,
+  Stack,
+  Alert,
 } from "@mui/material";
 import Footer from "../footer";
-import { useLogin } from "./hooks/useLogin";
+import { useRegister } from "./hooks/useRegister";
 
-function LoginComponent() {
-  const { ...hooks } = useLogin();
+function RegisterComponent() {
+  const { ...hooks } = useRegister();
   return (
     <Box
       sx={{
@@ -35,7 +36,9 @@ function LoginComponent() {
           marginBottom: "30px",
         }}
       >
-        Login to Your Account
+        {hooks.isLoading
+          ? "Creating your account"
+          : "Get started with your new account"}
       </Typography>
       {hooks.isLoading ? (
         <LinearProgress
@@ -67,6 +70,7 @@ function LoginComponent() {
           ) : (
             <></>
           )}
+
           <Box>
             <Typography
               sx={{
@@ -76,19 +80,65 @@ function LoginComponent() {
                 marginBottom: "10px",
               }}
             >
-              Email
+              Full Name
             </Typography>
             <TextField
+              error={hooks.inputFullName.length === 0}
               label=""
-              placeholder="Email address"
+              placeholder="John Doe"
+              onChange={hooks.handleChangeInputFullName}
               sx={{
                 input: { fontSize: "16px", color: "#333333" },
                 border: "1px solid #cccccc",
                 borderRadius: "4px",
                 marginBottom: "30px",
               }}
-              onChange={hooks.handleChangeInputEmail}
             />
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: 600,
+                color: "#002b5a",
+                marginBottom: "10px",
+              }}
+            >
+              Contact #
+            </Typography>
+            <TextField
+              error={hooks.inputPhone.length === 0}
+              onChange={hooks.handleChangeInputPhone}
+              label=""
+              placeholder="(012) 345-678"
+              sx={{
+                input: { fontSize: "16px", color: "#333333" },
+                border: "1px solid #cccccc",
+                borderRadius: "4px",
+                marginBottom: "30px",
+              }}
+            />
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: 600,
+                color: "#002b5a",
+                marginBottom: "10px",
+              }}
+            >
+              Email Address
+            </Typography>
+            <TextField
+              label=""
+              error={!hooks.EmailRegex.test(hooks.inputEmail)}
+              onChange={hooks.handleChangeInputEmail}
+              placeholder="johndoe@sample-email.com"
+              sx={{
+                input: { fontSize: "16px", color: "#333333" },
+                border: "1px solid #cccccc",
+                borderRadius: "4px",
+                marginBottom: "30px",
+              }}
+            />
+
             <Typography
               sx={{
                 fontSize: "16px",
@@ -100,12 +150,13 @@ function LoginComponent() {
               Password
             </Typography>
             <TextField
+              error={hooks.inputPassword.length === 0}
+              onChange={hooks.handleChangeInputPassword}
               id="outlined-password-input"
               label=""
               type="password"
               autoComplete="current-password"
               placeholder="Password"
-              onChange={hooks.handleChangeInputPassword}
               sx={{
                 input: { fontSize: "16px", color: "#333333" },
                 border: "1px solid #cccccc",
@@ -119,22 +170,12 @@ function LoginComponent() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              textAlign: "right",
             }}
           >
-            <Link
-              href="#"
-              underline="hover"
-              sx={{ color: "#fda5cb", textAlign: "right" }}
-            >
-              Forgot your password?
-            </Link>
             <Button
-              onClick={hooks.handleClickLogin}
               disabled={!hooks.hasCompleteValidInput}
               sx={{
                 fontSize: "18px",
-                textTransform: "none",
                 fontWeight: 600,
                 color: "#fffffd",
                 backgroundColor: "#fda5cb",
@@ -149,18 +190,14 @@ function LoginComponent() {
                   backgroundColor: "#002b5a",
                 },
               }}
+              onClick={hooks.handleClickCreateAccount}
             >
-              Login
+              Signup
             </Button>
-
             <Typography sx={{ fontSize: "16px", color: "#002b5a" }}>
-              Not yet a member?
-              <Link
-                href="/register"
-                underline="hover"
-                sx={{ color: "#fda5cb" }}
-              >
-                Create Account
+              Already a member?
+              <Link href="/login" underline="hover" sx={{ color: "#fda5cb" }}>
+                Login
               </Link>
             </Typography>
           </Box>
@@ -172,4 +209,4 @@ function LoginComponent() {
   );
 }
 
-export default LoginComponent;
+export default RegisterComponent;
