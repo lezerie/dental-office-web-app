@@ -6,7 +6,7 @@ class Schedule {
       db.query(
         `SELECT Schedule.*, Doctor.full_name AS doctor_name
          FROM Schedule
-         JOIN Doctor ON Schedule.Doctor = Doctor.id
+         JOIN Doctor ON Schedule.doctor_id = Doctor.id
          WHERE Schedule.schedule_day = ?`,
         [schedule_day],
         (err, results) => {
