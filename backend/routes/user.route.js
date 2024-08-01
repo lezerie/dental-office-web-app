@@ -15,4 +15,10 @@ router.put(
   UserController.updateAppointment
 );
 
+router.delete(
+  "/appointments/:id",
+  AuthService.authenticateToken,
+  UserController.deleteAppointment
+);
+
 module.exports = router;
