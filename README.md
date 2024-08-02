@@ -6,9 +6,13 @@ This web application allows patients to schedule and manage their dental appoint
 
 ## Demo Video
 
-<video width="600" controls>
-  <source src="demo.mp4" type="video/mp4">
-</video>
+<p align="center">
+  <video src="images/demo.mp4" width="500px"></video>
+</p>
+
+<video src="images/demo.mp4" width="320" height="240" controls></video>
+
+![non working video](demo.mp4)
 
 ## Table of Contents
 
