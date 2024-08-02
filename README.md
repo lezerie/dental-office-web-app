@@ -95,15 +95,15 @@ This is a full-stack web application designed for dental office online schedulin
 - **Schedule**
 
   - id
-  - doctore_id : Doctor (id)
+  - doctore_id : Doctor(id)
   - schedule_day
   - schedule_time
 
 - **Appointment**
   - id
-  - schedule_id : Schedule (id)
-  - client_id :Client (id)
-  - service_id : Service (id)
+  - schedule_id : Schedule(id)
+  - client_id : Client(id)
+  - service_id : Service(id)
   - appointment_date
   - status
   - remarks
@@ -130,3 +130,53 @@ This is a full-stack web application designed for dental office online schedulin
    cd Project
    ```
 2. **Set up the Backend:**
+   - Navigate to the `backend` directory:
+     ```bash
+     git clone <repository-url>
+     cd Project
+     ```
+   - Install the dependencies:
+     ```bash
+     npm install
+     ```
+   - Create a `.env` file in the `backend` directory and add the required environment variables
+   ```makefile
+    DB_HOST=your_db_host
+    DB_USER=your_db_user
+    DB_PASSWORD=your_db_password
+    DB_DATABASE=your_db_name
+    JWT_SECRET=your_jwt_secret
+   ```
+3. **Set up the Frontend:**
+   - Navigate to the `frontend` directory:
+     ```bash
+     cd ../frontend
+     ```
+   - Install the dependencies:
+     ```bash
+     npm install
+     ```
+   - Create a `.env` file in the `backend` directory and add the required environment variables
+   ```makefile
+    VITE_APP_BASE_URL=your_backend_api_url
+   ```
+
+## Running the Application
+
+1. **Start the Backend:**
+
+- From the `backend` directory, run:
+  ```bash
+  npm start
+  ```
+
+2. **Start the Frontend:**
+
+   - From the `backend` directory, run:
+     ```bash
+     npm run dev
+     ```
+
+3. **Access the Application:**
+
+- Open your browser and navigate to the frontend URL (typically `http://localhost:5173`)
