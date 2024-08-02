@@ -10,21 +10,20 @@ This web application allows patients to schedule and manage their dental appoint
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Tech Stack](#tech-stack)
-3. [Project Structure](#project-structure)
+1. [Tech Stack](#tech-stack)
+2. [Folder Structure](#folder-structure)
    - [Backend](#backend-1)
    - [Frontend](#frontend-1)
-4. [Environment Variables](#environment-variables)
+3. [Environment Variables](#environment-variables)
    - [Frontend](#frontend-2)
    - [Backend](#backend-2)
-5. [Database Schema](#database-schema)
+4. [Database Schema](#database-schema)
    - [Tables](#tables)
-6. [Features](#features)
+5. [Features](#features)
    - [Frontend (React)](#frontend-react)
    - [Backend (Node.js)](#backend-nodejs)
-   - [Database](#database-1)
-7. [Setup and Installation](#setup-and-installation)
+   - [Database](#database-mysql)
+6. [Setup and Installation](#setup-and-installation)
 
 ## Tech Stack
 
@@ -151,7 +150,7 @@ This web application allows patients to schedule and manage their dental appoint
 
 4. **Access the Application:**
 
-- Open your browser and navigate to the frontend URL (typically `http://localhost:5173`)
+   - Open your browser and navigate to the frontend URL (typically `http://localhost:5173`)
 
 ---
 
