@@ -6,11 +6,7 @@ This web application allows patients to schedule and manage their dental appoint
 
 ## Demo Video
 
-<p align="center">
-  <video src="images/demo.mp4" width="500px"></video>
-</p>
-
-<video src="images/demo.mp4" width="320" height="240" controls></video>
+<video src="https://github.com/lezerie/dental-office-web-app/blob/feature/documentation/demo.mp4" width="352" height="720"></video>
 
 ![non working video](demo.mp4)
 
