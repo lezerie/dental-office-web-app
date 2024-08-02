@@ -76,18 +76,14 @@ function NavigationBar() {
               fontSize: "20px",
               fontWeight: "600px",
               textAnchor: "center",
+              textAlign: "center",
               p: 2,
-              color:
-                hooks.storedUser.full_name.length === 0
-                  ? hooks.displayedText
-                  : hooks.storedUser.full_name
-                  ? "#fda5cb"
-                  : null,
+              color: hooks.storedUser.full_name.length === 0 ? null : "#fda5cb",
             }}
           >
             {hooks.storedUser.full_name.length === 0
               ? hooks.displayedText
-              : hooks.storedUser.full_name}
+              : `${hooks.storedUser.full_name} Dashboard`}
           </Typography>
         </Box>
         {hooks.storedUser.full_name.length === 0 ? (

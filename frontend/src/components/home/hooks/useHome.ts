@@ -9,7 +9,7 @@ import { useAppSelector } from "../../../states/hook";
 export const useHome = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<any[]>(ServicesList);
   const storedToken: string = useAppSelector((state) => state.Token.token);
   console.log("HOME CHECK", storedToken);
   const handleClickBooking = () => {
@@ -20,15 +20,21 @@ export const useHome = () => {
     const fetchDataFromDatabase = async () => {
       try {
         const response = await HomeRequest();
-        setServices(response);
-        dispatch(addServices(response));
+
+        if (!response) {
+          setServices(ServicesList);
+          dispatch(addServices(ServicesList));
+        } else {
+          setServices(response);
+          dispatch(addServices(response));
+        }
       } catch (error) {
         setServices(ServicesList);
         dispatch(addServices(ServicesList));
       }
     };
 
-    if (services.length == 0) {
+    if (!services && services.length == 0) {
       fetchDataFromDatabase();
     }
   }, []);
